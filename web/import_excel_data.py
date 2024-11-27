@@ -8,7 +8,7 @@ def read_excel(*path):
         print("read_excel path={}".format(path))
         workbook = xlrd.open_workbook(path)
     else:
-        workbook = xlrd.open_workbook(r'C:\Users\wangzh\Desktop\migu_question.xlsx')
+        workbook = xlrd.open_workbook(r'C:\Users\wangzh\Desktop\question.xlsx')
     # print("sheet name={}".format(workbook.sheet_names()))
     sheet = workbook.sheet_by_name('Sheet1')
     nrows = sheet.nrows
@@ -34,5 +34,5 @@ def read_excel(*path):
 
 
 if __name__ == '__main__':
-    result = read_excel(r'F:\pyworkspace\text2vec\web\migu_question.xlsx')
+    result = read_excel(r'F:\pyworkspace\text2vec\web\question.xlsx')
     print(result)

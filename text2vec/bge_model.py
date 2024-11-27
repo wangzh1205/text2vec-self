@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-@author:XuMing(xuming624@qq.com)
-@description: Create Bge model for text matching task
 
-code modified from https://github.com/FlagOpen/FlagEmbedding
-"""
 
 import math
 import os

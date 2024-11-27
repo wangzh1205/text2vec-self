@@ -1,12 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-@author:XuMing(xuming624@qq.com)
-@description: Evaluate MTEB benchmark
 
-pip install C_MTEB
-
-code modified from https://github.com/FlagOpen/FlagEmbedding
-"""
 
 import argparse
 import json

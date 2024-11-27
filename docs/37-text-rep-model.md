@@ -1,11 +1,3 @@
----
-title: Text Representation Model
-permalink: /docs/text-rep-model/
-excerpt: "Text Representation Model"
-last_modified_at: 2020/07/26 23:16:38
-toc: true
----
-
 
 
 ## `RepresentationModel`

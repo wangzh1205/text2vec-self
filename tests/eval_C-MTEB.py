@@ -1,12 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-@author:XuMing(xuming624@qq.com)
-@description: Evaluate C-MTEB benchmark
 
-pip install -U C_MTEB
-
-code modified from https://github.com/FlagOpen/FlagEmbedding
-"""
 import argparse
 from mteb import MTEB  # must import mteb before C_MTEB
 from C_MTEB import ChineseTaskList

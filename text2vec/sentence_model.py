@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-@author:XuMing(xuming624@qq.com)
-@description: Base sentence model function, add encode function.
-Parts of this file is adapted from the sentence-transformers: https://github.com/UKPLab/sentence-transformers
-"""
+
 import math
 import os
 import queue

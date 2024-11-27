@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-@author:XuMing(xuming624@qq.com)
-@description: 
-"""
+
 from loguru import logger
 import random
 import numpy as np

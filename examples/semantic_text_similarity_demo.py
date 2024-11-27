@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-@author:XuMing(xuming624@qq.com)
-@description: 文本语义相似度计算
-"""
+
 import sys
 
 sys.path.append('..')

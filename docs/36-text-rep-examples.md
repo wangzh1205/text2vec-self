@@ -1,10 +1,3 @@
----
-title: Text Representation Examples
-permalink: /docs/text-rep-examples/
-excerpt: "Text Representation Examples"
-last_modified_at: 2020/07/26 23:16:38
-toc: true
----
 
 ### Minimal example for generating word embeddings
 Generate a list of contextual word embeddings for every sentence in a list

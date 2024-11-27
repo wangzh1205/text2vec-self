@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-@author:XuMing(xuming624@qq.com)
-@description: pip install jina
-"""
+
 from jina import Flow
 
 port = 50001

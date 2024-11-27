@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-@author:XuMing(xuming624@qq.com)
-@description: 
-"""
+
 
 from datasets import load_dataset
 from torch.utils.data import Dataset

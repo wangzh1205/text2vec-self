@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-@author:XuMing(xuming624@qq.com)
-@description: This examples trains CoSENT model with the English STS dataset.
-It generates sentence embeddings that can be compared using cosine-similarity to measure the similarity.
-"""
+
 import argparse
 import csv
 import gzip

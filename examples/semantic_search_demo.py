@@ -1,14 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-@author:XuMing(xuming624@qq.com)
-@description: 语义相似文本检索
-This is a simple application for sentence embeddings: semantic search
 
-We have a corpus with various sentences. Then, for a given query sentence,
-we want to find the most similar sentence in this corpus.
-
-This script outputs for various queries the top 5 most similar sentences in the corpus.
-"""
 import sys
 
 sys.path.append('..')

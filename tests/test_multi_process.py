@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-@author:XuMing(xuming624@qq.com)
-@description: 
 
-code copy from: SentenceTransformers.tests.test_multi_process.py
-"""
 
 import sys
 import unittest

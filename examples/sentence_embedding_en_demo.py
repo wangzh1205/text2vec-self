@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-@author:XuMing(xuming624@qq.com)
-@description:
-This basic example loads a pre-trained model from the web and uses it to
-generate sentence embeddings for a given list of sentences.
-"""
+
 
 import sys
 

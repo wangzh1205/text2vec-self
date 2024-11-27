@@ -1,5 +1,3 @@
-[**🇨🇳中文**](https://github.com/shibing624/text2vec/blob/master/README.md) | [**🌐English**](https://github.com/shibing624/text2vec/blob/master/README_EN.md) | [**📖文档/Docs**](https://github.com/shibing624/text2vec/wiki) | [**🤖模型/Models**](https://huggingface.co/shibing624) 
-
 <div align="center">
   <a href="https://github.com/shibing624/text2vec">
     <img src="https://github.com/shibing624/text2vec/blob/master/docs/t2v-logo.png" height="150" alt="Logo">
@@ -808,45 +806,6 @@ DatasetDict({
 })
 {'sentence1': '一个女孩在给她的头发做发型。', 'sentence2': '一个女孩在梳头。', 'label': 2}
 ```
-
-
-
-
-
-## Contact
-
-- Issue(建议)：[![GitHub issues](https://img.shields.io/github/issues/shibing624/text2vec.svg)](https://github.com/shibing624/text2vec/issues)
-- 邮件我：xuming: xuming624@qq.com
-- 微信我：加我*微信号：xuming624, 备注：姓名-公司-NLP* 进NLP交流群。
-
-<img src="docs/wechat.jpeg" width="200" />
-
-
-## Citation
-
-如果你在研究中使用了text2vec，请按如下格式引用：
-
-APA:
-```latex
-Xu, M. Text2vec: Text to vector toolkit (Version 1.1.2) [Computer software]. https://github.com/shibing624/text2vec
-```
-
-BibTeX:
-```latex
-@misc{Text2vec,
-  author = {Ming Xu},
-  title = {Text2vec: Text to vector toolkit},
-  year = {2023},
-  publisher = {GitHub},
-  journal = {GitHub repository},
-  howpublished = {\url{https://github.com/shibing624/text2vec}},
-}
-```
-
-## License
-
-
-授权协议为 [The Apache License 2.0](LICENSE)，可免费用做商业用途。请在产品说明中附加text2vec的链接和授权协议。
 
 
 ## Contribute

@@ -1,16 +1,16 @@
 ﻿import gradio as gr
 from text2vec import SentenceModel
 from pymilvus import connections, db, FieldSchema, DataType, CollectionSchema, Collection
-import milvus_create_collection_migu_bge as migu_bge
+import milvus_create_collection_wzh_bge as wzh_bge
 
 
 m = SentenceModel()
 
 MILVUS_HOST = "localhost"
 MILVUS_PORT = '19530'
-DATA_BASE = 'migu_text'
-MIGU_COLLECTION_NAME = ('migu_text_collection')
-MIGU_BGE_COLLECTION_NAME = ('migu_bge_text_collection')
+DATA_BASE = 'wzh_text'
+WZH_COLLECTION_NAME = ('wzh_text_collection')
+WZH_BGE_COLLECTION_NAME = ('wzh_bge_text_collection')
 connection = connections.connect(user='minioadmin', password='minioadmin', host=MILVUS_HOST,
                                  port=MILVUS_PORT)
 
@@ -23,11 +23,11 @@ def encode(word):
 def query_milvus(word, radio, limitNum, score):
     if radio == 'text2vec':
         embeddings = encode(word)
-        result = search_data(embeddings, limitNum, score, MIGU_COLLECTION_NAME)
+        result = search_data(embeddings, limitNum, score, WZH_COLLECTION_NAME)
     else:
-        embeddings = migu_bge.migu_embedding_req(word)
+        embeddings = wzh_bge.wzh_embedding_req(word)
         if embeddings is not None:
-            result = search_data(embeddings, limitNum, score, MIGU_BGE_COLLECTION_NAME)
+            result = search_data(embeddings, limitNum, score, WZH_BGE_COLLECTION_NAME)
     return paras_search_result(result)
 
 
@@ -68,7 +68,7 @@ def paras_search_result(hit_result):
 def main():
     with gr.Blocks() as app:
         input_word = gr.Text(label="输入要匹配的问题")
-        input_radio = gr.Radio(['text2vec', 'migu-bge'], label='选择向量模型', value='text2vec')
+        input_radio = gr.Radio(['text2vec', 'wzh-bge'], label='选择向量模型', value='text2vec')
         input_num = gr.Slider(label="要显示的条数", value=3, minimum=1, maximum=10, step=1)
         input_score = gr.Slider(label="得分值", value=0.50, minimum=0, maximum=1, step=0.0001)
         with gr.Row():

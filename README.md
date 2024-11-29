@@ -1,9 +1,3 @@
-<div align="center">
-  <a href="https://github.com/shibing624/text2vec">
-    <img src="https://github.com/shibing624/text2vec/blob/master/docs/t2v-logo.png" height="150" alt="Logo">
-  </a>
-</div>
-
 -----------------
 
 # Text2vec: Text to Vector
@@ -12,26 +6,13 @@
 [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![License Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![python_version](https://img.shields.io/badge/Python-3.5%2B-green.svg)](requirements.txt)
-[![GitHub issues](https://img.shields.io/github/issues/shibing624/text2vec.svg)](https://github.com/shibing624/text2vec/issues)
+[![GitHub issues](https://img.shields.io/github/issues/wangzh1205/text2vec-self.svg)](https://github.com/wangzh1205/text2vec-self/issues)
 [![Wechat Group](https://img.shields.io/badge/wechat-group-green.svg?logo=wechat)](#Contact)
 
 
 **Text2vec**: Text to Vector, Get Sentence Embeddings. 文本向量化，把文本(包括词、句子、段落)表征为向量矩阵。
 
 **text2vec**实现了Word2Vec、RankBM25、BERT、Sentence-BERT、CoSENT等多种文本表征、文本相似度计算模型，并在文本语义匹配（相似度计算）任务上比较了各模型的效果。
-
-### News
-[2023/09/20] v1.2.9版本: 支持多卡推理（多进程实现多GPU、多CPU推理），新增命令行工具（CLI），可以脚本执行批量文本向量化，详见[Release-v1.2.9](https://github.com/shibing624/text2vec/releases/tag/1.2.9)
-
-[2023/09/03] v1.2.4版本: 支持FlagEmbedding模型训练，发布了中文匹配模型[shibing624/text2vec-bge-large-chinese](https://huggingface.co/shibing624/text2vec-bge-large-chinese)，用CoSENT方法监督训练，基于`BAAI/bge-large-zh-noinstruct`用中文匹配数据集训练得到，并在中文测试集评估相对于原模型效果有提升，短文本区分度上提升明显，详见[Release-v1.2.4](https://github.com/shibing624/text2vec/releases/tag/1.2.4)
-
-[2023/07/17] v1.2.2版本: 支持多卡训练，发布了多语言匹配模型[shibing624/text2vec-base-multilingual](https://huggingface.co/shibing624/text2vec-base-multilingual)，用CoSENT方法训练，基于`sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`用人工挑选后的多语言STS数据集[shibing624/nli-zh-all/text2vec-base-multilingual-dataset](https://huggingface.co/datasets/shibing624/nli-zh-all/tree/main/text2vec-base-multilingual-dataset)训练得到，并在中英文测试集评估相对于原模型效果有提升，详见[Release-v1.2.2](https://github.com/shibing624/text2vec/releases/tag/1.2.2)
-
-[2023/06/19] v1.2.1版本: 更新了中文匹配模型`shibing624/text2vec-base-chinese-nli`为新版[shibing624/text2vec-base-chinese-sentence](https://huggingface.co/shibing624/text2vec-base-chinese-sentence)，针对CoSENT的loss计算对排序敏感特点，人工挑选并整理出高质量的有相关性排序的STS数据集[shibing624/nli-zh-all/text2vec-base-chinese-sentence-dataset](https://huggingface.co/datasets/shibing624/nli-zh-all/tree/main/text2vec-base-chinese-sentence-dataset)，在各评估集表现相对之前有提升；发布了适用于s2p的中文匹配模型[shibing624/text2vec-base-chinese-paraphrase](https://huggingface.co/shibing624/text2vec-base-chinese-paraphrase)，详见[Release-v1.2.1](https://github.com/shibing624/text2vec/releases/tag/1.2.1)
-
-[2023/06/15] v1.2.0版本: 发布了中文匹配模型[shibing624/text2vec-base-chinese-nli](https://huggingface.co/shibing624/text2vec-base-chinese-nli)，基于`nghuyong/ernie-3.0-base-zh`模型，使用了中文NLI数据集[shibing624/nli_zh](https://huggingface.co/datasets/shibing624/nli_zh)全部语料训练的CoSENT文本匹配模型，在各评估集表现提升明显，详见[Release-v1.2.0](https://github.com/shibing624/text2vec/releases/tag/1.2.0)
-
-[2022/03/12] v1.1.4版本: 发布了中文匹配模型[shibing624/text2vec-base-chinese](https://huggingface.co/shibing624/text2vec-base-chinese)，基于中文STS训练集训练的CoSENT匹配模型。详见[Release-v1.1.4](https://github.com/shibing624/text2vec/releases/tag/1.1.4)
 
 
 **Guide**
@@ -45,13 +26,13 @@
 
 ## Features
 ### 文本向量表示模型
-- [Word2Vec](https://github.com/shibing624/text2vec/blob/master/text2vec/word2vec.py)：通过腾讯AI Lab开源的大规模高质量中文[词向量数据（800万中文词轻量版）](https://pan.baidu.com/s/1La4U4XNFe8s5BJqxPQpeiQ) (文件名：light_Tencent_AILab_ChineseEmbedding.bin 密码: tawe）实现词向量检索，本项目实现了句子（词向量求平均）的word2vec向量表示
-- [SBERT(Sentence-BERT)](https://github.com/shibing624/text2vec/blob/master/text2vec/sentencebert_model.py)：权衡性能和效率的句向量表示模型，训练时通过有监督训练BERT和softmax分类函数，文本匹配预测时直接取句子向量做余弦，句子表征方法，本项目基于PyTorch复现了Sentence-BERT模型的训练和预测
-- [CoSENT(Cosine Sentence)](https://github.com/shibing624/text2vec/blob/master/text2vec/cosent_model.py)：CoSENT模型提出了一种排序的损失函数，使训练过程更贴近预测，模型收敛速度和效果比Sentence-BERT更好，本项目基于PyTorch实现了CoSENT模型的训练和预测
-- [BGE(BAAI general embedding)](https://github.com/shibing624/text2vec/blob/master/text2vec/bge_model.py)：BGE模型按照[retromae](https://github.com/staoxiao/RetroMAE)方法进行预训练，[参考论文](https://aclanthology.org/2022.emnlp-main.35.pdf)，再使用对比学习finetune微调训练模型，本项目基于PyTorch实现了BGE模型的微调训练和预测
+- [Word2Vec](https://github.com/wangzh1205/text2vec-self/blob/master/text2vec/word2vec.py)：通过腾讯AI Lab开源的大规模高质量中文[词向量数据（800万中文词轻量版）](https://pan.baidu.com/s/1La4U4XNFe8s5BJqxPQpeiQ) (文件名：light_Tencent_AILab_ChineseEmbedding.bin 密码: tawe）实现词向量检索，本项目实现了句子（词向量求平均）的word2vec向量表示
+- [SBERT(Sentence-BERT)](https://github.com/wangzh1205/text2vec-self/blob/master/text2vec/sentencebert_model.py)：权衡性能和效率的句向量表示模型，训练时通过有监督训练BERT和softmax分类函数，文本匹配预测时直接取句子向量做余弦，句子表征方法，本项目基于PyTorch复现了Sentence-BERT模型的训练和预测
+- [CoSENT(Cosine Sentence)](https://github.com/wangzh1205/text2vec-self/blob/master/text2vec/cosent_model.py)：CoSENT模型提出了一种排序的损失函数，使训练过程更贴近预测，模型收敛速度和效果比Sentence-BERT更好，本项目基于PyTorch实现了CoSENT模型的训练和预测
+- [BGE(BAAI general embedding)](https://github.com/wangzh1205/text2vec-self/blob/master/text2vec/bge_model.py)：BGE模型按照[retromae](https://github.com/staoxiao/RetroMAE)方法进行预训练，[参考论文](https://aclanthology.org/2022.emnlp-main.35.pdf)，再使用对比学习finetune微调训练模型，本项目基于PyTorch实现了BGE模型的微调训练和预测
 
 
-详细文本向量表示方法见wiki: [文本向量表示方法](https://github.com/shibing624/text2vec/wiki/%E6%96%87%E6%9C%AC%E5%90%91%E9%87%8F%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95)
+详细文本向量表示方法见wiki: [文本向量表示方法](https://github.com/wangzh1205/text2vec-self/wiki/%E6%96%87%E6%9C%AC%E5%90%91%E9%87%8F%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95)
 ## Evaluation
 
 文本匹配
@@ -69,7 +50,7 @@
 | SBERT  | sentence-transformers/bert-base-nli-mean-tokens | SBERT-base-nli-first_last_avg                                                                                        |     77.96     |
 | CoSENT | bert-base-uncased                               | CoSENT-base-first_last_avg                                                                                           |     69.93     |
 | CoSENT | sentence-transformers/bert-base-nli-mean-tokens | CoSENT-base-nli-first_last_avg                                                                                       |     79.68     |
-| CoSENT | sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 | [shibing624/text2vec-base-multilingual](https://huggingface.co/shibing624/text2vec-base-multilingual)                |     80.12     |
+| CoSENT | sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 | [wangzh1205/text2vec-self-base-multilingual](https://huggingface.co/wangzh1205/text2vec-self-base-multilingual)                |     80.12     |
 
 #### 中文匹配数据集的评测结果：
 
@@ -86,7 +67,7 @@
 说明：
 - 结果评测指标：spearman系数
 - 为评测模型能力，结果均只用该数据集的train训练，在test上评估得到的表现，没用外部数据
-- `SBERT-macbert-base`模型，是用SBert方法训练，运行[examples/training_sup_text_matching_model.py](https://github.com/shibing624/text2vec/blob/master/examples/training_sup_text_matching_model.py)代码可训练模型
+- `SBERT-macbert-base`模型，是用SBert方法训练，运行[examples/training_sup_text_matching_model.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/training_sup_text_matching_model.py)代码可训练模型
 - `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`模型是用SBert训练，是`paraphrase-MiniLM-L12-v2`模型的多语言版本，支持中文、英文等
 
 
@@ -97,38 +78,38 @@
 |:-----------|:------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------|:-----:|:-----:|:-----:|:-----:|:-----:|:-------:|:-------:|:---------:|:-----:|
 | Word2Vec   | word2vec                                                    | [w2v-light-tencent-chinese](https://ai.tencent.com/ailab/nlp/en/download.html)                                                                    | 20.00 | 31.49 | 59.46 | 2.57  | 55.78 |  55.04  |  20.70  |   35.03   | 23769 |
 | SBERT      | xlm-roberta-base                                            | [sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2) | 18.42 | 38.52 | 63.96 | 10.14 | 78.90 |  63.01  |  52.28  |   46.46   | 3138  |
-| CoSENT     | hfl/chinese-macbert-base                                    | [shibing624/text2vec-base-chinese](https://huggingface.co/shibing624/text2vec-base-chinese)                                                       | 31.93 | 42.67 | 70.16 | 17.21 | 79.30 |  70.27  |  50.42  |   51.61   | 3008  |
+| CoSENT     | hfl/chinese-macbert-base                                    | [wangzh1205/text2vec-self-base-chinese](https://huggingface.co/wangzh1205/text2vec-self-base-chinese)                                                       | 31.93 | 42.67 | 70.16 | 17.21 | 79.30 |  70.27  |  50.42  |   51.61   | 3008  |
 | CoSENT     | hfl/chinese-lert-large                                      | [GanymedeNil/text2vec-large-chinese](https://huggingface.co/GanymedeNil/text2vec-large-chinese)                                                   | 32.61 | 44.59 | 69.30 | 14.51 | 79.44 |  73.01  |  59.04  |   53.12   | 2092  |
-| CoSENT     | nghuyong/ernie-3.0-base-zh                                  | [shibing624/text2vec-base-chinese-sentence](https://huggingface.co/shibing624/text2vec-base-chinese-sentence)                                     | 43.37 | 61.43 | 73.48 | 38.90 | 78.25 |  70.60  |  53.08  |   59.87   | 3089  |
-| CoSENT     | nghuyong/ernie-3.0-base-zh                                  | [shibing624/text2vec-base-chinese-paraphrase](https://huggingface.co/shibing624/text2vec-base-chinese-paraphrase)                                 | 44.89 | 63.58 | 74.24 | 40.90 | 78.93 |  76.70  |  63.30  | **63.08** | 3066  |
-| CoSENT     | sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 | [shibing624/text2vec-base-multilingual](https://huggingface.co/shibing624/text2vec-base-multilingual)                                             | 32.39 | 50.33 | 65.64 | 32.56 | 74.45 |  68.88  |  51.17  |   53.67   | 3138  |
-| CoSENT     | BAAI/bge-large-zh-noinstruct                                | [shibing624/text2vec-bge-large-chinese](https://huggingface.co/shibing624/text2vec-bge-large-chinese)                                             | 38.41 | 61.34 | 71.72 | 35.15 | 76.44 |  71.81  |  63.15  |   59.72   |  844  |
+| CoSENT     | nghuyong/ernie-3.0-base-zh                                  | [wangzh1205/text2vec-self-base-chinese-sentence](https://huggingface.co/wangzh1205/text2vec-self-base-chinese-sentence)                                     | 43.37 | 61.43 | 73.48 | 38.90 | 78.25 |  70.60  |  53.08  |   59.87   | 3089  |
+| CoSENT     | nghuyong/ernie-3.0-base-zh                                  | [wangzh1205/text2vec-self-base-chinese-paraphrase](https://huggingface.co/wangzh1205/text2vec-self-base-chinese-paraphrase)                                 | 44.89 | 63.58 | 74.24 | 40.90 | 78.93 |  76.70  |  63.30  | **63.08** | 3066  |
+| CoSENT     | sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 | [wangzh1205/text2vec-self-base-multilingual](https://huggingface.co/wangzh1205/text2vec-self-base-multilingual)                                             | 32.39 | 50.33 | 65.64 | 32.56 | 74.45 |  68.88  |  51.17  |   53.67   | 3138  |
+| CoSENT     | BAAI/bge-large-zh-noinstruct                                | [wangzh1205/text2vec-self-bge-large-chinese](https://huggingface.co/wangzh1205/text2vec-self-bge-large-chinese)                                             | 38.41 | 61.34 | 71.72 | 35.15 | 76.44 |  71.81  |  63.15  |   59.72   |  844  |
 
 
 说明：
 - 结果评测指标：spearman系数
-- `shibing624/text2vec-base-chinese`模型，是用CoSENT方法训练，基于`hfl/chinese-macbert-base`在中文STS-B数据训练得到，并在中文STS-B测试集评估达到较好效果，运行[examples/training_sup_text_matching_model.py](https://github.com/shibing624/text2vec/blob/master/examples/training_sup_text_matching_model.py)代码可训练模型，模型文件已经上传HF model hub，中文通用语义匹配任务推荐使用
-- `shibing624/text2vec-base-chinese-sentence`模型，是用CoSENT方法训练，基于`nghuyong/ernie-3.0-base-zh`用人工挑选后的中文STS数据集[shibing624/nli-zh-all/text2vec-base-chinese-sentence-dataset](https://huggingface.co/datasets/shibing624/nli-zh-all/tree/main/text2vec-base-chinese-sentence-dataset)训练得到，并在中文各NLI测试集评估达到较好效果，运行[examples/training_sup_text_matching_model_jsonl_data.py](https://github.com/shibing624/text2vec/blob/master/examples/training_sup_text_matching_model_jsonl_data.py)代码可训练模型，模型文件已经上传HF model hub，中文s2s(句子vs句子)语义匹配任务推荐使用
-- `shibing624/text2vec-base-chinese-paraphrase`模型，是用CoSENT方法训练，基于`nghuyong/ernie-3.0-base-zh`用人工挑选后的中文STS数据集[shibing624/nli-zh-all/text2vec-base-chinese-paraphrase-dataset](https://huggingface.co/datasets/shibing624/nli-zh-all/tree/main/text2vec-base-chinese-paraphrase-dataset)，数据集相对于[shibing624/nli-zh-all/text2vec-base-chinese-sentence-dataset](https://huggingface.co/datasets/shibing624/nli-zh-all/tree/main/text2vec-base-chinese-sentence-dataset)加入了s2p(sentence to paraphrase)数据，强化了其长文本的表征能力，并在中文各NLI测试集评估达到SOTA，运行[examples/training_sup_text_matching_model_jsonl_data.py](https://github.com/shibing624/text2vec/blob/master/examples/training_sup_text_matching_model_jsonl_data.py)代码可训练模型，模型文件已经上传HF model hub，中文s2p(句子vs段落)语义匹配任务推荐使用
-- `shibing624/text2vec-base-multilingual`模型，是用CoSENT方法训练，基于`sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`用人工挑选后的多语言STS数据集[shibing624/nli-zh-all/text2vec-base-multilingual-dataset](https://huggingface.co/datasets/shibing624/nli-zh-all/tree/main/text2vec-base-multilingual-dataset)训练得到，并在中英文测试集评估相对于原模型效果有提升，运行[examples/training_sup_text_matching_model_jsonl_data.py](https://github.com/shibing624/text2vec/blob/master/examples/training_sup_text_matching_model_jsonl_data.py)代码可训练模型，模型文件已经上传HF model hub，多语言语义匹配任务推荐使用
-- `shibing624/text2vec-bge-large-chinese`模型，是用CoSENT方法训练，基于`BAAI/bge-large-zh-noinstruct`用人工挑选后的中文STS数据集[shibing624/nli-zh-all/text2vec-base-chinese-paraphrase-dataset](https://huggingface.co/datasets/shibing624/nli-zh-all/tree/main/text2vec-base-chinese-paraphrase-dataset)训练得到，并在中文测试集评估相对于原模型效果有提升，在短文本区分度上提升明显，运行[examples/training_sup_text_matching_model_jsonl_data.py](https://github.com/shibing624/text2vec/blob/master/examples/training_sup_text_matching_model_jsonl_data.py)代码可训练模型，模型文件已经上传HF model hub，中文s2s(句子vs句子)语义匹配任务推荐使用
+- `wangzh1205/text2vec-self-base-chinese`模型，是用CoSENT方法训练，基于`hfl/chinese-macbert-base`在中文STS-B数据训练得到，并在中文STS-B测试集评估达到较好效果，运行[examples/training_sup_text_matching_model.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/training_sup_text_matching_model.py)代码可训练模型，模型文件已经上传HF model hub，中文通用语义匹配任务推荐使用
+- `wangzh1205/text2vec-self-base-chinese-sentence`模型，是用CoSENT方法训练，基于`nghuyong/ernie-3.0-base-zh`用人工挑选后的中文STS数据集[shibing624/nli-zh-all/text2vec-base-chinese-sentence-dataset](https://huggingface.co/datasets/shibing624/nli-zh-all/tree/main/text2vec-base-chinese-sentence-dataset)训练得到，并在中文各NLI测试集评估达到较好效果，运行[examples/training_sup_text_matching_model_jsonl_data.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/training_sup_text_matching_model_jsonl_data.py)代码可训练模型，模型文件已经上传HF model hub，中文s2s(句子vs句子)语义匹配任务推荐使用
+- `wangzh1205/text2vec-self-base-chinese-paraphrase`模型，是用CoSENT方法训练，基于`nghuyong/ernie-3.0-base-zh`用人工挑选后的中文STS数据集[shibing624/nli-zh-all/text2vec-base-chinese-paraphrase-dataset](https://huggingface.co/datasets/shibing624/nli-zh-all/tree/main/text2vec-base-chinese-paraphrase-dataset)，数据集相对于[shibing624/nli-zh-all/text2vec-base-chinese-sentence-dataset](https://huggingface.co/datasets/shibing624/nli-zh-all/tree/main/text2vec-base-chinese-sentence-dataset)加入了s2p(sentence to paraphrase)数据，强化了其长文本的表征能力，并在中文各NLI测试集评估达到SOTA，运行[examples/training_sup_text_matching_model_jsonl_data.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/training_sup_text_matching_model_jsonl_data.py)代码可训练模型，模型文件已经上传HF model hub，中文s2p(句子vs段落)语义匹配任务推荐使用
+- `wangzh1205/text2vec-self-base-multilingual`模型，是用CoSENT方法训练，基于`sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`用人工挑选后的多语言STS数据集[shibing624/nli-zh-all/text2vec-base-multilingual-dataset](https://huggingface.co/datasets/shibing624/nli-zh-all/tree/main/text2vec-base-multilingual-dataset)训练得到，并在中英文测试集评估相对于原模型效果有提升，运行[examples/training_sup_text_matching_model_jsonl_data.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/training_sup_text_matching_model_jsonl_data.py)代码可训练模型，模型文件已经上传HF model hub，多语言语义匹配任务推荐使用
+- `wangzh1205/text2vec-self-bge-large-chinese`模型，是用CoSENT方法训练，基于`BAAI/bge-large-zh-noinstruct`用人工挑选后的中文STS数据集[shibing624/nli-zh-all/text2vec-base-chinese-paraphrase-dataset](https://huggingface.co/datasets/shibing624/nli-zh-all/tree/main/text2vec-base-chinese-paraphrase-dataset)训练得到，并在中文测试集评估相对于原模型效果有提升，在短文本区分度上提升明显，运行[examples/training_sup_text_matching_model_jsonl_data.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/training_sup_text_matching_model_jsonl_data.py)代码可训练模型，模型文件已经上传HF model hub，中文s2s(句子vs句子)语义匹配任务推荐使用
 - `w2v-light-tencent-chinese`是腾讯词向量的Word2Vec模型，CPU加载使用，适用于中文字面匹配任务和缺少数据的冷启动情况
 - 各预训练模型均可以通过transformers调用，如MacBERT模型：`--model_name hfl/chinese-macbert-base` 或者roberta模型：`--model_name uer/roberta-medium-wwm-chinese-cluecorpussmall`
 - 为测评模型的鲁棒性，加入了未训练过的SOHU测试集，用于测试模型的泛化能力；为达到开箱即用的实用效果，使用了搜集到的各中文匹配数据集，数据集也上传到HF datasets[链接见下方](#数据集)
 - 中文匹配任务实验表明，pooling最优是`EncoderType.FIRST_LAST_AVG`和`EncoderType.MEAN`，两者预测效果差异很小
-- 中文匹配评测结果复现，可以下载中文匹配数据集到`examples/data`，运行 [tests/model_spearman.py](https://github.com/shibing624/text2vec/blob/master/tests/model_spearman.py) 代码复现评测结果
+- 中文匹配评测结果复现，可以下载中文匹配数据集到`examples/data`，运行 [tests/model_spearman.py](https://github.com/wangzh1205/text2vec-self/blob/master/tests/model_spearman.py) 代码复现评测结果
 - QPS的GPU测试环境是Tesla V100，显存32GB
 
-模型训练实验报告：[实验报告](https://github.com/shibing624/text2vec/blob/master/docs/model_report.md)
+模型训练实验报告：[实验报告](https://github.com/wangzh1205/text2vec-self/blob/master/docs/model_report.md)
 ## Demo
 
 Official Demo: https://www.mulanai.com/product/short_text_sim/
 
-HuggingFace Demo: https://huggingface.co/spaces/shibing624/text2vec
+HuggingFace Demo: https://huggingface.co/spaces/wangzh1205/text2vec-self
 
 ![](docs/hf.png)
 
-run example: [examples/gradio_demo.py](https://github.com/shibing624/text2vec/blob/master/examples/gradio_demo.py) to see the demo:
+run example: [examples/gradio_demo.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/gradio_demo.py) to see the demo:
 ```shell
 python examples/gradio_demo.py
 ```
@@ -145,7 +126,7 @@ or
 pip install torch # conda install pytorch
 pip install -r requirements.txt
 
-git clone https://github.com/shibing624/text2vec.git
+git clone https://github.com/wangzh1205/text2vec-self.git
 cd text2vec
 pip install --no-deps .
 ```
@@ -163,7 +144,7 @@ pip install --no-deps .
 Embedding shape: (768,)
 ```
 
-example: [examples/computing_embeddings_demo.py](https://github.com/shibing624/text2vec/blob/master/examples/computing_embeddings_demo.py)
+example: [examples/computing_embeddings_demo.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/computing_embeddings_demo.py)
 
 ```python
 import sys
@@ -197,11 +178,11 @@ def compute_emb(model):
 
 if __name__ == "__main__":
     # 中文句向量模型(CoSENT)，中文语义匹配任务推荐，支持fine-tune继续训练
-    t2v_model = SentenceModel("shibing624/text2vec-base-chinese")
+    t2v_model = SentenceModel("wangzh1205/text2vec-self-base-chinese")
     compute_emb(t2v_model)
 
     # 支持多语言的句向量模型（CoSENT），多语言（包括中英文）语义匹配任务推荐，支持fine-tune继续训练
-    sbert_model = SentenceModel("shibing624/text2vec-base-multilingual")
+    sbert_model = SentenceModel("wangzh1205/text2vec-self-base-multilingual")
     compute_emb(sbert_model)
 
     # 中文词向量模型(word2vec)，中文字面匹配任务和冷启动适用
@@ -222,20 +203,20 @@ Embedding shape: (768,)
 ```
 
 - 返回值`embeddings`是`numpy.ndarray`类型，shape为`(sentences_size, model_embedding_size)`，三个模型任选一种即可，推荐用第一个。
-- `shibing624/text2vec-base-chinese`模型是CoSENT方法在中文STS-B数据集训练得到的，模型已经上传到huggingface的
-模型库[shibing624/text2vec-base-chinese](https://huggingface.co/shibing624/text2vec-base-chinese)，
+- `wangzh1205/text2vec-self-base-chinese`模型是CoSENT方法在中文STS-B数据集训练得到的，模型已经上传到huggingface的
+模型库[wangzh1205/text2vec-self-base-chinese](https://huggingface.co/wangzh1205/text2vec-self-base-chinese)，
 是`text2vec.SentenceModel`指定的默认模型，可以通过上面示例调用，或者如下所示用[transformers库](https://github.com/huggingface/transformers)调用，
 模型自动下载到本机路径：`~/.cache/huggingface/transformers`
 - `w2v-light-tencent-chinese`是通过gensim加载的Word2Vec模型，使用腾讯词向量`Tencent_AILab_ChineseEmbedding.tar.gz`计算各字词的词向量，句子向量通过单词词
 向量取平均值得到，模型自动下载到本机路径：`~/.text2vec/datasets/light_Tencent_AILab_ChineseEmbedding.bin`
-- `text2vec`支持多卡推理(计算文本向量): [examples/computing_embeddings_multi_gpu_demo.py](https://github.com/shibing624/text2vec/blob/master/examples/computing_embeddings_multi_gpu_demo.py)
+- `text2vec`支持多卡推理(计算文本向量): [examples/computing_embeddings_multi_gpu_demo.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/computing_embeddings_multi_gpu_demo.py)
 
 #### Usage (HuggingFace Transformers)
-Without [text2vec](https://github.com/shibing624/text2vec), you can use the model like this: 
+Without [text2vec](https://github.com/wangzh1205/text2vec-self), you can use the model like this: 
 
 First, you pass your input through the transformer model, then you have to apply the right pooling-operation on-top of the contextualized word embeddings.
 
-example: [examples/use_origin_transformers_demo.py](https://github.com/shibing624/text2vec/blob/master/examples/use_origin_transformers_demo.py)
+example: [examples/use_origin_transformers_demo.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/use_origin_transformers_demo.py)
 
 ```python
 import os
@@ -253,8 +234,8 @@ def mean_pooling(model_output, attention_mask):
 
 
 # Load model from HuggingFace Hub
-tokenizer = AutoTokenizer.from_pretrained('shibing624/text2vec-base-chinese')
-model = AutoModel.from_pretrained('shibing624/text2vec-base-chinese')
+tokenizer = AutoTokenizer.from_pretrained('wangzh1205/text2vec-self-base-chinese')
+model = AutoModel.from_pretrained('wangzh1205/text2vec-self-base-chinese')
 sentences = ['如何更换花呗绑定银行卡', '花呗更改绑定银行卡']
 # Tokenize sentences
 encoded_input = tokenizer(sentences, padding=True, truncation=True, return_tensors='pt')
@@ -279,7 +260,7 @@ Then load model and predict:
 ```python
 from sentence_transformers import SentenceTransformer
 
-m = SentenceTransformer("shibing624/text2vec-base-chinese")
+m = SentenceTransformer("wangzh1205/text2vec-self-base-chinese")
 sentences = ['如何更换花呗绑定银行卡', '花呗更改绑定银行卡']
 
 sentence_embeddings = m.encode(sentences)
@@ -292,14 +273,14 @@ print(sentence_embeddings)
 提供两种`Word2Vec`词向量，任选一个：
 
   - 轻量版腾讯词向量 [百度云盘-密码:tawe](https://pan.baidu.com/s/1La4U4XNFe8s5BJqxPQpeiQ) 或 [谷歌云盘](https://drive.google.com/u/0/uc?id=1iQo9tBb2NgFOBxx0fA16AZpSgc-bG_Rp&export=download)，二进制文件，111M，是简化后的高频143613个词，每个词向量还是200维（跟原版一样），运行程序，自动下载到 `~/.text2vec/datasets/light_Tencent_AILab_ChineseEmbedding.bin`
-  - 腾讯词向量-官方全量, 6.78G放到： `~/.text2vec/datasets/Tencent_AILab_ChineseEmbedding.txt`，腾讯词向量主页：https://ai.tencent.com/ailab/nlp/zh/index.html 词向量下载地址：https://ai.tencent.com/ailab/nlp/en/download.html  更多查看[腾讯词向量介绍-wiki](https://github.com/shibing624/text2vec/wiki/%E8%85%BE%E8%AE%AF%E8%AF%8D%E5%90%91%E9%87%8F%E4%BB%8B%E7%BB%8D)
+  - 腾讯词向量-官方全量, 6.78G放到： `~/.text2vec/datasets/Tencent_AILab_ChineseEmbedding.txt`，腾讯词向量主页：https://ai.tencent.com/ailab/nlp/zh/index.html 词向量下载地址：https://ai.tencent.com/ailab/nlp/en/download.html  更多查看[腾讯词向量介绍-wiki](https://github.com/wangzh1205/text2vec-self/wiki/%E8%85%BE%E8%AE%AF%E8%AF%8D%E5%90%91%E9%87%8F%E4%BB%8B%E7%BB%8D)
 
 
 ### 命令行模式（CLI）
 
 支持批量获取文本向量
 
-code: [cli.py](https://github.com/shibing624/text2vec/blob/master/text2vec/cli.py)
+code: [cli.py](https://github.com/wangzh1205/text2vec-self/blob/master/text2vec/cli.py)
 
 ```
 > text2vec -h                                    
@@ -318,7 +299,7 @@ optional arguments:
   --model_type MODEL_TYPE
                         model type: sentencemodel, word2vec, default sentencemodel
   --model_name MODEL_NAME
-                        model name or path, default shibing624/text2vec-base-chinese
+                        model name or path, default wangzh1205/text2vec-self-base-chinese
   --encoder_type ENCODER_TYPE
                         encoder type: MEAN, CLS, POOLER, FIRST_LAST_AVG, LAST_AVG, default MEAN
   --batch_size BATCH_SIZE
@@ -348,7 +329,7 @@ text2vec --input_file input.txt --output_file out.csv --batch_size 128 --multi_g
 ## 下游任务
 ### 1. 句子相似度计算
 
-example: [examples/semantic_text_similarity_demo.py](https://github.com/shibing624/text2vec/blob/master/examples/semantic_text_similarity_demo.py)
+example: [examples/semantic_text_similarity_demo.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/semantic_text_similarity_demo.py)
 
 ```python
 import sys
@@ -401,7 +382,7 @@ The new movie is awesome 		 The new movie is so great 		 Score: 0.9591
 一般在文档候选集中找与query最相似的文本，常用于QA场景的问句相似匹配、文本相似检索等任务。
 
 
-example: [examples/semantic_search_demo.py](https://github.com/shibing624/text2vec/blob/master/examples/semantic_search_demo.py)
+example: [examples/semantic_search_demo.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/semantic_search_demo.py)
 
 ```python
 import sys
@@ -525,7 +506,7 @@ Inference:
 
 - 在中文STS-B数据集训练和评估`CoSENT`模型
 
-example: [examples/training_sup_text_matching_model.py](https://github.com/shibing624/text2vec/blob/master/examples/training_sup_text_matching_model.py)
+example: [examples/training_sup_text_matching_model.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/training_sup_text_matching_model.py)
 
 ```shell
 cd examples
@@ -541,7 +522,7 @@ python training_sup_text_matching_model.py --task_name ATEC --model_arch cosent 
 
 - 在自有中文数据集上训练模型
 
-example: [examples/training_sup_text_matching_model_mydata.py](https://github.com/shibing624/text2vec/blob/master/examples/training_sup_text_matching_model_mydata.py)
+example: [examples/training_sup_text_matching_model_mydata.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/training_sup_text_matching_model_mydata.py)
 
 单卡训练：
 ```shell
@@ -553,7 +534,7 @@ CUDA_VISIBLE_DEVICES=0 python training_sup_text_matching_model_mydata.py --do_tr
 CUDA_VISIBLE_DEVICES=0,1 torchrun --nproc_per_node 2  training_sup_text_matching_model_mydata.py --do_train --do_predict --output_dir outputs/STS-B-text2vec-macbert-v1 --batch_size 64 --bf16 --data_parallel 
 ```
 
-训练集格式参考[examples/data/STS-B/STS-B.valid.data](https://github.com/shibing624/text2vec/blob/master/examples/data/STS-B/STS-B.valid.data)
+训练集格式参考[examples/data/STS-B/STS-B.valid.data](https://github.com/wangzh1205/text2vec-self/blob/master/examples/data/STS-B/STS-B.valid.data)
 
 ```shell
 sentence1   sentence2   label
@@ -567,7 +548,7 @@ sentence1   sentence2   label
 
 - 在英文STS-B数据集训练和评估`CoSENT`模型
 
-example: [examples/training_sup_text_matching_model_en.py](https://github.com/shibing624/text2vec/blob/master/examples/training_sup_text_matching_model_en.py)
+example: [examples/training_sup_text_matching_model_en.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/training_sup_text_matching_model_en.py)
 
 ```shell
 cd examples
@@ -577,7 +558,7 @@ python training_sup_text_matching_model_en.py --model_arch cosent --do_train --d
 #### CoSENT 无监督模型
 - 在英文NLI数据集训练`CoSENT`模型，在STS-B测试集评估效果
 
-example: [examples/training_unsup_text_matching_model_en.py](https://github.com/shibing624/text2vec/blob/master/examples/training_unsup_text_matching_model_en.py)
+example: [examples/training_unsup_text_matching_model_en.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/training_unsup_text_matching_model_en.py)
 
 ```shell
 cd examples
@@ -603,7 +584,7 @@ Inference:
 #### SentenceBERT 监督模型
 - 在中文STS-B数据集训练和评估`SBERT`模型
 
-example: [examples/training_sup_text_matching_model.py](https://github.com/shibing624/text2vec/blob/master/examples/training_sup_text_matching_model.py)
+example: [examples/training_sup_text_matching_model.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/training_sup_text_matching_model.py)
 
 ```shell
 cd examples
@@ -611,7 +592,7 @@ python training_sup_text_matching_model.py --model_arch sentencebert --do_train 
 ```
 - 在英文STS-B数据集训练和评估`SBERT`模型
 
-example: [examples/training_sup_text_matching_model_en.py](https://github.com/shibing624/text2vec/blob/master/examples/training_sup_text_matching_model_en.py)
+example: [examples/training_sup_text_matching_model_en.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/training_sup_text_matching_model_en.py)
 
 ```shell
 cd examples
@@ -621,7 +602,7 @@ python training_sup_text_matching_model_en.py --model_arch sentencebert --do_tra
 #### SentenceBERT 无监督模型
 - 在英文NLI数据集训练`SBERT`模型，在STS-B测试集评估效果
 
-example: [examples/training_unsup_text_matching_model_en.py](https://github.com/shibing624/text2vec/blob/master/examples/training_unsup_text_matching_model_en.py)
+example: [examples/training_unsup_text_matching_model_en.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/training_unsup_text_matching_model_en.py)
 
 ```shell
 cd examples
@@ -637,7 +618,7 @@ Training and inference:
 
 <img src="docs/bert-fc-train.png" width="300" />
 
-训练脚本同上[examples/training_sup_text_matching_model.py](https://github.com/shibing624/text2vec/blob/master/examples/training_sup_text_matching_model.py)。
+训练脚本同上[examples/training_sup_text_matching_model.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/training_sup_text_matching_model.py)。
 
 
 
@@ -646,7 +627,7 @@ Training and inference:
 #### BGE 监督模型
 - 在中文STS-B数据集训练和评估`BGE`模型
 
-example: [examples/training_bge_model_mydata.py](https://github.com/shibing624/text2vec/blob/master/examples/training_bge_model_mydata.py)
+example: [examples/training_bge_model_mydata.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/training_bge_model_mydata.py)
 
 ```shell
 cd examples
@@ -695,7 +676,7 @@ from jina import Flow
 port = 50001
 f = Flow(port=port).add(
     uses='jinahub://Text2vecEncoder',
-    uses_with={'model_name': 'shibing624/text2vec-base-chinese'}
+    uses_with={'model_name': 'wangzh1205/text2vec-self-base-chinese'}
 )
 
 with f:
@@ -724,7 +705,7 @@ r = c.post('/', inputs=DocumentArray([Document(text='如何更换花呗绑定银
 print(r.embeddings)
 ```
 
-批量调用方法见example: [examples/jina_client_demo.py](https://github.com/shibing624/text2vec/blob/master/examples/jina_client_demo.py)
+批量调用方法见example: [examples/jina_client_demo.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/jina_client_demo.py)
 
 
 #### FastAPI服务
@@ -734,7 +715,7 @@ print(r.embeddings)
 
 - 启动服务：
 
-example: [examples/fastapi_server_demo.py](https://github.com/shibing624/text2vec/blob/master/examples/fastapi_server_demo.py)
+example: [examples/fastapi_server_demo.py](https://github.com/wangzh1205/text2vec-self/blob/master/examples/fastapi_server_demo.py)
 ```shell
 cd examples
 python fastapi_server_demo.py
@@ -756,7 +737,7 @@ curl -X 'GET' \
 |:---------------------------|:-------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | shibing624/nli-zh-all      | 中文语义匹配数据合集，整合了文本推理，相似，摘要，问答，指令微调等任务的820万高质量数据，并转化为匹配格式数据集                | [https://huggingface.co/datasets/shibing624/nli-zh-all](https://huggingface.co/datasets/shibing624/nli-zh-all)                                                                                                                                                                                        |
 | shibing624/snli-zh         | 中文SNLI和MultiNLI数据集，翻译自英文SNLI和MultiNLI                                    | [https://huggingface.co/datasets/shibing624/snli-zh](https://huggingface.co/datasets/shibing624/snli-zh)                                                                                                                                                                                              |
-| shibing624/nli_zh          | 中文语义匹配数据集，整合了中文ATEC、BQ、LCQMC、PAWSX、STS-B共5个任务的数据集                        | [https://huggingface.co/datasets/shibing624/nli_zh](https://huggingface.co/datasets/shibing624/nli_zh) </br> or </br> [百度网盘(提取码:qkt6)](https://pan.baidu.com/s/1d6jSiU1wHQAEMWJi7JJWCQ) </br> or </br> [github](https://github.com/shibing624/text2vec/releases/download/1.1.2/senteval_cn.zip) </br> |
+| shibing624/nli_zh          | 中文语义匹配数据集，整合了中文ATEC、BQ、LCQMC、PAWSX、STS-B共5个任务的数据集                        | [https://huggingface.co/datasets/shibing624/nli_zh](https://huggingface.co/datasets/shibing624/nli_zh) </br> or </br> [百度网盘(提取码:qkt6)](https://pan.baidu.com/s/1d6jSiU1wHQAEMWJi7JJWCQ) </br> or </br> [github](https://github.com/wangzh1205/text2vec-self/releases/download/1.1.2/senteval_cn.zip) </br> |
 | shibing624/sts-sohu2021    | 中文语义匹配数据集，2021搜狐校园文本匹配算法大赛数据集                                            | [https://huggingface.co/datasets/shibing624/sts-sohu2021](https://huggingface.co/datasets/shibing624/sts-sohu2021)                                                                                                                                                                                    |
 | ATEC                       | 中文ATEC数据集，蚂蚁金服Q-Qpair数据集                                                 | [ATEC](https://github.com/IceFlameWorm/NLP_Datasets/tree/master/ATEC)                                                                                                                                                                                                                                 |
 | BQ                         | 中文BQ(Bank Question)数据集，银行Q-Qpair数据集                                      | [BQ](http://icrc.hitsz.edu.cn/info/1037/1162.htm)                                                                                                                                                                                                                                                     |
